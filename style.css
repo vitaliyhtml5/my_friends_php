@@ -38,8 +38,12 @@ button {
 .error-message {
     display: none;
     font-size: 14px;
-    margin: -7px 0 0 5px;
+    margin: 2px 0 0 5px;
     color: #ec6969;
+}
+.error-input,
+.error-input:focus {
+    border: 1px solid #ec6969;
 }
 label {
     display: block;
@@ -112,9 +116,111 @@ input:focus {
 .login-form input {
     width: 100%;
 }
-
-
+.checkbox-label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer !important;
+}
+.checkbox-label span {
+    position: absolute;
+    top: 48%;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--main-bg-color);
+    border-radius: 2px;
+    transform: translateY(-50%);
+}
+.checkbox-label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+.checkbox-label input:checked + span {
+    background: var(--main-bg-color) url(img/checkbox.svg) 60%/70% no-repeat;
+}
 .login-form button {
     width: 150px;
     margin: 20px 0 0 auto;
+}
+
+/* Alert */
+.alert {
+    position: fixed;
+    z-index: -1;
+    top: 27px;
+    right: 40px;
+    padding: 8px;
+    border: 1px solid #158e49;
+    border-radius: 2px;
+    font-size: 18px;
+    opacity: 0;
+    background-color: #8dfdb8;
+}
+.alert button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    color: #3e3e3e;
+    opacity: 0.9;
+    font-size: 15px;
+    font-weight: 700;
+    background: none;
+    transform: translateY(-50%);
+}
+.alert p {
+    margin: 0 30px 0 5px;
+}
+.alert button:hover {
+    color: #2a2a2a;
+}
+.unsuccess {
+    border: 1px solid #f69494;
+    background-color: #fbaeae;
+}
+
+
+/* Animations*/
+@keyframes openModal {
+    0% {
+        opacity: 0;
+        z-index: -1;
+    }
+    100% {
+        opacity: 1;
+        z-index: 50;
+    }
+}
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        z-index: 50;
+    }
+    100% {
+        opacity: 0;
+        z-index: -1;
+    }
+}
+@keyframes showAlert {
+    0% {
+        opacity: 0.9;
+        z-index: 100;
+    }
+    80% {
+        opacity: 0.9;
+        z-index: 100;
+    }
+    100% {
+        opacity: 0;
+        z-index: -1;
+    }
+}
+@keyframes startLoader {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
