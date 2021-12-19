@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello</h1>
+    <header id="header-main">
+        <div class="container">
+            <div class="header-wrap">
+                <div class="logo-wrap"></div>
+                <h1>My friends</h1>
+                <b class="header-welcome-text">Добро пожаловать, <span>Василий</span></b>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="main-wrap">
+                <aside id="sidebar">
+                    <ul class="menu">
+                       <li class="menu-selected">Моя страница</li> 
+                       <li>Друзья</li> 
+                       <li>Сообщения</li> 
+                       <li>Лента</li> 
+                       <li>Выход</li> 
+                    </ul>
+                </aside>
+                <div class="content">
+                    <section class="content-section content-page"></section>
+                    <section class="content-section friends-page"></section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="alert"></div>
+    <div class="overlay"></div>
+    <div class="loader"></div>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
+<!-- http://localhost/my_friends_php/index.html -->

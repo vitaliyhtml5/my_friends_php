@@ -23,4 +23,16 @@ function closeAlert(alert) {
     document.querySelector('.alert button').onclick = () => alert.style.animation = 'none';
 }
 
-export {showAlert};
+// Loader
+const showLoaderMain = () => document.querySelector('.loader').style.display = 'block';
+const closeLoaderMain = () => document.querySelector('.loader').style.display = 'none';
+
+
+// Format date
+const formatDate = (date) => {
+    const dateArr = date.split('-').reverse();
+    const newDate = dateArr.join('-');
+    return newDate;
+}
+
+export {formatDate,showAlert,showLoaderMain,closeLoaderMain};
