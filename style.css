@@ -313,6 +313,54 @@ input:focus {
     background-image: url(img/like_checked.svg);
 }
 
+/* Friends */
+.friend-box {
+    display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 90%;
+	margin: 5px auto 20px;
+	padding: 15px 30px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    box-shadow: 0 3px 7px 0.5px rgb(0 0 0 / 30%);
+	cursor: pointer;
+    transition: .4s;
+}
+.friend-box:hover {
+    border: 1px solid #9797c3;
+}
+.avatar-wrap {
+	width: 120px;
+	height: 120px;
+	margin-right: 40px;
+	border: 2px solid var(--main-bg-color);
+	border-radius: 50%;
+}
+.friend-data-hobby {
+    margin-left: auto;
+	color: rgba(0,0,0,0.75);
+    font-size: 17px;
+}
+.friend-main-data li:last-child {
+    display: block;
+	margin-top: 5px;
+	color: rgba(0,0,0,0.5);
+    font-size: 17px;
+}
+.link-back {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: #9797c3;
+    font-size: 14px;
+    transition: .4s;
+    cursor: pointer;
+}
+.link-back:hover {
+    color: var(--main-bg-color);
+}
+
 /* Alert */
 .alert {
     position: fixed;

@@ -1,8 +1,10 @@
 'use strict';
 
 import {formatDate} from './components.js';
+import {showFriendProfile} from './show_friends.js';
+import {makeLike} from './make_like.js';
 
-function addContent(data, section) {
+const addContent = (data, section) => {
     section.innerHTML = `
     <div class="profile-wrap">
         <div class="avatar-profile">
@@ -41,7 +43,7 @@ function addContent(data, section) {
                     <img src="img/news/${data[i].image}" alt="News">
                     <span class="like-icon">${data[i].likes}</span>
                 </div>`;
-                if (!data[i].liked) {
+                if (data[i].liked) {
                     document.querySelectorAll('.like-icon')[i-1].classList.add('like-icon-checked');
                 } else {
                     document.querySelectorAll('.like-icon')[i-1].classList.remove('like-icon-checked');
@@ -51,4 +53,75 @@ function addContent(data, section) {
     }
 }
 
-export {addContent};
+const addAllFriends = (userId, section, result) => {
+    if (result.length === 0) {
+        console.log('EMPTY STATE');
+        // EMPTY STATE
+    } else {
+        section.innerHTML = ``;
+        for (let i in result) {
+            section.innerHTML += `
+            <div class="all-friends-wrap">
+                <div class="friend-box">
+                    <img class="avatar-wrap" src="img/avatars/${result[i].avatar}" alt="${result[i].first_name} ${result[i].last_name}">
+                    <ul class="friend-main-data">
+                        <li class="profile-name"><span>${result[i].first_name}</span> <span>${result[i].last_name}</span></li>
+                        <li><span>${result[i].age}</span> лет</li>
+                    </ul>
+                    <span class="friend-data-hobby">${result[i].hobby}</span>
+                </div>
+            </div>`;
+        }
+        showFriendProfile(userId, result, section);
+    }
+}
+
+const addProfileFriend = (userId, chosenFriend, data, section, result) => {
+    section.innerHTML = ``;
+    section.innerHTML = `
+    <div class="profile-wrap">
+        <div class="avatar-profile">
+            <img src="img/avatars/${chosenFriend.avatar}" alt="Profile avatar">
+        </div>
+        <div class="profile-data">
+            <ul class="profile-menu">
+                <li class="profile-name"><span>${chosenFriend.first_name}</span> <span>${chosenFriend.last_name}</span></li>
+                <li><span>${chosenFriend.age}</span> лет</li>
+                <li>${chosenFriend.hobby}</li>
+            </ul>
+        </div>
+        <span class="link-back">Назад</span>
+    </div>
+    <div class="profile-news">
+        <div class="profile-post-wrap"></div>
+    </div>`;
+    addNews();
+    function addNews() {
+        const news = document.querySelector('.profile-post-wrap');
+        if (data.length === 0) {
+            console.log('EMPTY STATE');
+            // EMPTY STATE
+        } else {
+            for (let i = 0; i < data.length; i++) {
+                news.innerHTML += `
+                <div class="profile-post">
+                    <div class="news-info">
+                        <span class="news-date">${formatDate(data[i].created)}</span>
+                    </div>
+                    <p>${data[i].text}</p>
+                    <img src="img/news/${data[i].image}" alt="News">
+                    <span class="like-icon">${data[i].likes}</span>
+                </div>`;
+                if (data[i].liked) {
+                    document.querySelectorAll('.like-icon')[i].classList.add('like-icon-checked');
+                } else {
+                    document.querySelectorAll('.like-icon')[i].classList.remove('like-icon-checked');
+                }
+            }
+            makeLike(userId, data);
+        }
+        document.querySelector('.link-back').onclick = () => addAllFriends(userId, section, result);
+    }
+}
+
+export {addContent,addAllFriends,addProfileFriend};

@@ -3,6 +3,8 @@
 import {addContent} from './js_scripts/add_content.js';
 import {editProfileModal,closeOverlay} from './js_scripts/get_modal.js';
 import {showLoaderMain,closeLoaderMain} from './js_scripts/components.js';
+import {makeLike} from './js_scripts/make_like.js';
+import {showFriends} from './js_scripts/show_friends.js'
 
 getProfileData();
 async function getProfileData() {
@@ -22,6 +24,7 @@ function changeMenu(data) {
     const section = document.querySelectorAll('.content-section');
     addContent(data, section[0]);
     editProfileModal(data[0]);
+    makeLike(data[0].id, data, 'main');
     
     menu.forEach((el, index) => {
         el.onclick = () => {
@@ -35,6 +38,8 @@ function changeMenu(data) {
 
             if (index === 0) {
                 getProfileData();
+            } else if (index === 1) {
+                showFriends(data[0].id, section[1]);
             }
         }
     });
