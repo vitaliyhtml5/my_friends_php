@@ -1,8 +1,9 @@
 'use strict';
 
-import {formatDate} from './components.js';
+import {formatDate,showLoaderMain,closeLoaderMain} from './components.js';
 import {showFriendProfile} from './show_friends.js';
 import {makeLike} from './make_like.js';
+import {increaseImg} from './get_modal.js';
 
 const addContent = (data, section) => {
     section.innerHTML = `
@@ -40,7 +41,7 @@ const addContent = (data, section) => {
                         <span class="news-date">${formatDate(data[i].created)}</span>
                     </div>
                     <p>${data[i].text}</p>
-                    <img src="img/news/${data[i].image}" alt="News">
+                    <img class="news-img" src="img/news/${data[i].image}" alt="News">
                     <span class="like-icon">${data[i].likes}</span>
                 </div>`;
                 if (data[i].liked) {
@@ -48,6 +49,7 @@ const addContent = (data, section) => {
                 } else {
                     document.querySelectorAll('.like-icon')[i-1].classList.remove('like-icon-checked');
                 }
+                increaseImg(document.querySelectorAll('.news-img'));
             }
         }
     }
@@ -109,7 +111,7 @@ const addProfileFriend = (userId, chosenFriend, data, section, result) => {
                         <span class="news-date">${formatDate(data[i].created)}</span>
                     </div>
                     <p>${data[i].text}</p>
-                    <img src="img/news/${data[i].image}" alt="News">
+                    <img class="news-img" src="img/news/${data[i].image}" alt="News">
                     <span class="like-icon">${data[i].likes}</span>
                 </div>`;
                 if (data[i].liked) {
@@ -119,9 +121,56 @@ const addProfileFriend = (userId, chosenFriend, data, section, result) => {
                 }
             }
             makeLike(userId, data);
+            increaseImg(document.querySelectorAll('.news-img'));
         }
         document.querySelector('.link-back').onclick = () => addAllFriends(userId, section, result);
     }
 }
 
-export {addContent,addAllFriends,addProfileFriend};
+const addAllNews = (userId, section) => {
+    showNews();
+    showLoaderMain();
+    async function showNews() {
+        const res = await fetch(`/my_friends_php/php_scripts/show_all_news.php?user_id=${userId}`, {
+            method: 'GET'
+        });
+        const data = await res.json();
+        closeLoaderMain();
+
+        if (data.length === 0) {
+            console.log('EMPTY STATE');
+            // EMPTY STATE
+        } else {
+            addNews(data);
+        }
+    }
+    function addNews(data) {
+        section.innerHTML = ``;
+        for (let i = 0; i < data.length; i++) {
+            section.innerHTML += `
+            <div class="profile-post-wrap">
+                <div class="profile-post">
+                    <div class="post-info">
+                        <div class="author-news">
+                            <img class="avatar-wrap" src="img/avatars/${data[i].avatar}" alt="${data[i].first_name} ${data[i].last_name}">
+                            <span><b>${data[i].first_name}</b> <b>${data[i].last_name}</b></span>
+                        </div>
+                        <span class="news-date">${data[i].created}</span>
+                    </div>
+                    <p>${data[i].text}</p>
+                    <img class="news-img" src="img/news/${data[i].image}" alt="News">
+                    <span class="like-icon">${data[i].likes}</span>
+                </div>
+            </div>`;
+            if (data[i].liked) {
+                document.querySelectorAll('.like-icon')[i].classList.add('like-icon-checked');
+            } else {
+                document.querySelectorAll('.like-icon')[i].classList.remove('like-icon-checked');
+            }
+        }
+        makeLike(userId, data);
+        increaseImg(document.querySelectorAll('.news-img'));
+    }
+}
+
+export {addContent,addAllFriends,addProfileFriend,addAllNews};

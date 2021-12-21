@@ -1,17 +1,18 @@
 'use strict';
 
 import {addAllFriends,addProfileFriend} from './add_content.js';
-import {showAlert} from './components.js';
+import {showAlert,showLoaderMain,closeLoaderMain} from './components.js';
 
 const showFriends = (userId, section) => {
     showAll(userId);
 
+    showLoaderMain();
     async function showAll(userId) {
         const res = await fetch(`/my_friends_php/php_scripts/show_all_friends.php?id=${userId}`, {
             method: 'GET'
         });
         const result = await res.json();
-
+        closeLoaderMain();
         addAllFriends(userId, section, result);
     }
 }
@@ -21,6 +22,7 @@ const showFriendProfile = (userId, result, section) => {
     
     friendBox.forEach((el, index) => {
         el.onclick = () => {
+            showLoaderMain();
             showFriend(userId, result[index]);
         }
     });
@@ -30,6 +32,7 @@ const showFriendProfile = (userId, result, section) => {
             method: 'GET'
         });
         const newsArr = await res.json();
+        closeLoaderMain();
         if (result) {
             addProfileFriend(userId, chosenFriend, newsArr, section, result);
         } else {

@@ -13,6 +13,16 @@ const editProfileModal = data =>  {
     }
 }
 
+const increaseImg = img => {
+    img.forEach(el => {
+        el.onclick = () => {
+            createModal('increaseImg', el.src);
+            showModal();
+            overlay.addEventListener('click',closeOverlay);
+        }
+    });
+}
+
 function showModal() {
     overlay.style.animation = 'openModal 0.8s forwards';
     document.addEventListener('keydown', e => {
@@ -52,8 +62,13 @@ function createModal(type, data) {
                 <button class="button-secondary">Отмена</button>
             </div>
         </div>`;
+    } else if (type === 'increaseImg') {
+        overlay.innerHTML = `
+        <div class="modal modal-image">
+            <img src="${data}">
+        </div>`; 
     }
 }
 
-export {editProfileModal,closeOverlay};
+export {editProfileModal,increaseImg,closeOverlay};
 

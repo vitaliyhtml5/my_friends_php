@@ -1,21 +1,25 @@
 'use strict';
 
-import {addContent} from './js_scripts/add_content.js';
-import {editProfileModal,closeOverlay} from './js_scripts/get_modal.js';
+import {addContent,addAllNews} from './js_scripts/add_content.js';
+import {editProfileModal} from './js_scripts/get_modal.js';
 import {showLoaderMain,closeLoaderMain} from './js_scripts/components.js';
 import {makeLike} from './js_scripts/make_like.js';
-import {showFriends} from './js_scripts/show_friends.js'
+import {showFriends} from './js_scripts/show_friends.js';
+import {logout} from './js_scripts/logout.js';
 
 getProfileData();
+logout();
 async function getProfileData() {
     showLoaderMain();
-    const res = await fetch('./php_scripts/profile_data.php');
+    const res = await fetch('php_scripts/profile_data.php', {
+        method: 'GET'
+    });
     const data = await res.json();
     closeLoaderMain();
     if (data.message === 'Access is not allowed') {
         window.location.href = '/my_friends_php/login.html';
     } else {
-        changeMenu(data);   
+        changeMenu(data);
     }
 }
 
@@ -40,6 +44,8 @@ function changeMenu(data) {
                 getProfileData();
             } else if (index === 1) {
                 showFriends(data[0].id, section[1]);
+            } else if (index === 2) {
+                addAllNews(data[0].id, section[2]);
             }
         }
     });

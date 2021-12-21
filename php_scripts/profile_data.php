@@ -1,22 +1,27 @@
 <?php
 
 require_once('./dbc.php');
+require_once('./server_res.php');
 require_once('./get_user_id.php');
+
 session_start();
 
-$userId = json_decode(getId(), true)['id'];
-
-$profile = getDataProfile($userId, $dbc, "SELECT first_name,last_name,age,hobby,avatar FROM users 
-WHERE id = $userId");
-$news = getDataNews($dbc, "SELECT id AS id_main,text,image,DATE(created) AS created, 
-(SELECT COUNT(*) FROM likes WHERE news_id = id_main) AS likes, 
-(SELECT id FROM likes WHERE news_id = id_main AND users_id = $userId) AS liked 
-FROM news 
-WHERE users_id = $userId");
-$data = array_merge($profile, $news);
-
-header('Content-type: application/json');
-print json_encode($data);
+if (isset($_COOKIE['my_friends_access']) || isset($_SESSION['token'])) {
+    $userId = json_decode(getId(), true)['id'];
+    $profile = getDataProfile($userId, $dbc, "SELECT first_name,last_name,age,hobby,avatar FROM users 
+    WHERE id = $userId");
+    $news = getDataNews($dbc, "SELECT id AS id_main,text,image,DATE(created) AS created, 
+    (SELECT COUNT(*) FROM likes WHERE news_id = id_main) AS likes, 
+    (SELECT id FROM likes WHERE news_id = id_main AND users_id = $userId) AS liked 
+    FROM news 
+    WHERE users_id = $userId");
+    $data = array_merge($profile, $news);
+    header('Content-type: application/json');
+    print json_encode($data);
+} else {
+    http_response_code(401);
+    res_result(401, 'Access is not allowed');
+}
 
 function getDataProfile($userId, $dbc, $query) {
     $result = mysqli_query($dbc, $query) or die(mysqli_error());

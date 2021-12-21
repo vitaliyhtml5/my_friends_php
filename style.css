@@ -225,7 +225,8 @@ input:focus {
     margin-bottom: 20px;
     font-size: 20px;
 }
-.profile-name span {
+.profile-name span,
+.author-news span {
     color: var(--main-bg-color);
     font-size: 22px;
     font-weight: 700;
@@ -271,13 +272,14 @@ input:focus {
     box-shadow: 0 3px 7px 0.5px rgba(0,0,0,0.3);
 }
 .profile-post p {
-    margin-bottom: 5px;
+    margin: 5px 0 8px;
     font-size: 18px;
     line-height: 1.4;
 }
 .profile-post img {
     width: 450px;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 .news-info {
     display: flex;
@@ -361,6 +363,27 @@ input:focus {
     color: var(--main-bg-color);
 }
 
+/* News */
+.post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.author-news {
+    display: flex;
+    align-items: center;
+}
+.author-news img {
+    width: 50px;
+    height: 50px;
+    margin: 0 12px 0 0;
+}
+.author-news span {
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+
 /* Alert */
 .alert {
     position: fixed;
@@ -417,6 +440,16 @@ input:focus {
     border-radius: 4px;
     background-color: #fff;
     transform: translateX(-50%);
+}
+.modal-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    cursor: pointer;
+}
+.modal-image img {
+    max-width: 100%;
 }
 .modal-profile h2 {
     text-align: center;

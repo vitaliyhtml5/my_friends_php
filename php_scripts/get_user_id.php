@@ -5,7 +5,6 @@ require_once('./server_res.php');
 function getId() {
     if (isset($_COOKIE['my_friends_access'])) {
         return parseToken($_COOKIE['my_friends_access']);
-        
     } elseif(isset($_SESSION['token'])) {
         return parseToken($_SESSION['token']);
     } else {
