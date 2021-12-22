@@ -1,6 +1,6 @@
 'use strict';
 
-import {editProfile} from './edit_profile.js';
+import {editProfile,loadImageProfile} from './edit_profile.js';
 
 const overlay = document.querySelector('.overlay');
 const editProfileModal = data =>  {
@@ -10,6 +10,15 @@ const editProfileModal = data =>  {
         const  btnModal = document.querySelectorAll('.modal-btn-wrap button');
         btnModal[1].addEventListener('click', closeOverlay);
         btnModal[0].addEventListener('click', () => editProfile(data.id));
+    }
+}
+
+const editAvatar =  (userId, oldImage) => {
+    document.querySelector('.avatar-button').onclick = () => {
+        createModal('editAvatar', undefined);
+        showModal();
+        document.querySelectorAll('.upload-image-wrap button')[1].addEventListener('click', closeOverlay);
+        document.querySelector('.upload-image-wrap input').addEventListener('click', () => loadImageProfile(userId, oldImage));
     }
 }
 
@@ -62,6 +71,20 @@ function createModal(type, data) {
                 <button class="button-secondary">Отмена</button>
             </div>
         </div>`;
+    } else if (type === 'editAvatar') {
+        overlay.innerHTML = `
+        <div class="modal">
+            <form class="modal-avatar-change" enctype="multipart/form-data" accept="image/jpeg,image/png">
+                <h2>Смена аватара</h2>
+                <p>Загрузите JPG или PNG изображение до 5 Мб</p>
+                <span class="upload-image-message"></span>
+                <div class="upload-image-wrap">
+                    <input type="file" name="avatar">
+                    <button type="button" class="button-main avatar-button">Выбрать</button>
+                    <button type="button" class="button-secondary upload-avatar-secondary">Отмена</button>
+                </div>
+            </form>
+        </div>`; 
     } else if (type === 'increaseImg') {
         overlay.innerHTML = `
         <div class="modal modal-image">
@@ -70,5 +93,5 @@ function createModal(type, data) {
     }
 }
 
-export {editProfileModal,increaseImg,closeOverlay};
+export {editProfileModal,editAvatar,increaseImg,closeOverlay};
 

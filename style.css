@@ -451,7 +451,7 @@ input:focus {
 .modal-image img {
     max-width: 100%;
 }
-.modal-profile h2 {
+.modal h2 {
     text-align: center;
 }
 .modal-profile input {
@@ -464,6 +464,72 @@ input:focus {
 }
 .modal-btn-wrap button:last-child {
     margin-left: 5px;
+}
+
+/* Change avatar */
+.modal-avatar-change p {
+    margin: 20px 0 5px;
+    font-size: 18px;
+}
+.upload-image-wrap {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.upload-image-wrap input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 150px;
+    margin: 0;
+    opacity: 0;
+    transform: translateX(60px);
+}
+.upload-image-wrap button {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 150px;
+}
+.upload-avatar-secondary {
+    width: 150px;
+    margin-left: 5px;
+}
+.upload-image-message {
+    position: relative;
+    overflow: hidden;
+    max-width: 300px;
+    display: block;
+    margin: 0 0 15px 2px;
+    padding-left: 20px;
+    letter-spacing: 0.7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+}
+.upload-image-message::before {
+    position: absolute;
+    content: '';
+    top: 55%;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    transform: translateY(-50%);
+}
+.upload-image-error::before {
+    content: 'X';
+    top: 0;
+    font-weight: 700;
+    transform: translateY(0);
+}
+
+.upload-image-message:not(.upload-image-error)::before {
+    background: url(img/check.svg) 100%/100% no-repeat;
+}
+.upload-image-error {
+    color: #ec6969;
 }
 
 /* Loader */

@@ -35,4 +35,21 @@ const formatDate = (date) => {
     return newDate;
 }
 
-export {formatDate,showAlert,showLoaderMain,closeLoaderMain};
+// Format image
+const showFileMessage = (text, res) => {
+    const fileText = document.querySelector('.upload-image-message');
+    const uploadBtn = document.querySelector('.upload-image-wrap button');
+
+    if (!res) {
+        uploadBtn.textContent = 'Выбрать';
+        fileText.classList.add('upload-image-error');
+        uploadBtn.style.zIndex = '1';
+    } else {
+        uploadBtn.textContent = 'Загрузить';
+        fileText.classList.remove('upload-image-error');
+        uploadBtn.style.zIndex = '5';
+    }
+    fileText.textContent = text;
+}
+
+export {formatDate,showAlert,showLoaderMain,closeLoaderMain,showFileMessage};
