@@ -12,10 +12,10 @@ if (!isset($_FILES['avatar']['name'])) {
 } elseif ($file_type !== 'png' && $file_type !== 'jpg' && $file_type !== 'jpeg') {
     res_result(422, 'Incorrect format');
 } else {
-    $target = $current_dir . $_FILES['avatar']['name'];
+    $target = $current_dir . time(). '_' . $_FILES['avatar']['name'];
     move_uploaded_file($_FILES['avatar']['tmp_name'], $target);
 
-    $res = array('code' => 200,'message' => 'Image was uploaded', 'image' => $_FILES['avatar']['name']);
+    $res = array('code' => 200,'message' => 'Image was uploaded', 'image' => time(). '_' . $_FILES['avatar']['name']);
     header('Content-type: application/json');
     print json_encode($res);
 }

@@ -22,7 +22,7 @@ const addContent = (data, section) => {
         <button class="edit-profile" title="Редактировать профиль"></button>
     </div>
     <div class="profile-news">
-        <button class="button-main">Написать пост</button>
+        <button class="button-main add-news-btn">Написать пост</button>
         <div class="profile-post-wrap"></div>
     </div>`;
     addNews();

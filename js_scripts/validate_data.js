@@ -6,7 +6,7 @@ const checkEmptyData = (field, error) => {
     if (field.value.length === 0) {
         error.style.display = 'block';
         field.classList.add('error-input');
-        error.textContent = 'Can\'t be blank';
+        error.textContent = 'Поле не может быть пустым';
         validation = false;
         clearError(field, error);
     } else {
@@ -21,7 +21,7 @@ const checkLength = (field, error, length) => {
     if (field.value.length > length) {
         error.style.display = 'block';
         field.classList.add('error-input');
-        error.textContent = `Max length is ${length} chars`;
+        error.textContent = `Максимальная длина - ${length} символов`;
         validation = false;
         clearError(field, error);
     } else {
@@ -37,7 +37,7 @@ const checkNumber = (field, error) => {
     if (!re.test(field.value)) {
         error.style.display = 'block';
         field.classList.add('error-input');
-        error.textContent = `Only intergers can be put`;
+        error.textContent = `Значение должно быть целым числом`;
         validation = false;
         clearError(field, error);
     } else {

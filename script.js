@@ -1,7 +1,7 @@
 'use strict';
 
 import {addContent,addAllNews} from './js_scripts/add_content.js';
-import {editProfileModal,editAvatar} from './js_scripts/get_modal.js';
+import {editProfileModal,editAvatar,addNews,editNewsModal,deleteNews} from './js_scripts/get_modal.js';
 import {showLoaderMain,closeLoaderMain} from './js_scripts/components.js';
 import {makeLike} from './js_scripts/make_like.js';
 import {showFriends} from './js_scripts/show_friends.js';
@@ -30,6 +30,9 @@ function changeMenu(data) {
     editProfileModal(data[0]);
     makeLike(data[0].id, data, 'main');
     editAvatar(data[0].id,data[0].avatar);
+    addNews(data[0].id);
+    deleteNews(data);
+    editNewsModal(data);
     
     menu.forEach((el, index) => {
         el.onclick = () => {

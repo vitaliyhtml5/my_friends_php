@@ -55,9 +55,9 @@ const loadImageProfile = (userId,oldImage) => {
     function handleFiles() {
         const fileList = this.files;
         if (fileList[0].type != 'image/png' && fileList[0].type != 'image/jpeg') {
-            showFileMessage('Incorrect format', false);
+            showFileMessage('Неверный формат', false);
         } else if (fileList[0].size >= 5000000) {
-            showFileMessage('Incorrect size', false);
+            showFileMessage('Неверный размер файла', false);
         } else {
             showFileMessage(fileList[0].name, true);
             let uploadFile = file.files[0];
@@ -68,7 +68,7 @@ const loadImageProfile = (userId,oldImage) => {
     }
     async function uploadImage(fileData) {
         showLoaderMain();
-        const res = await fetch('/my_friends_php/php_scripts/upload-avatar.php', {
+        const res = await fetch('/my_friends_php/php_scripts/upload_avatar.php', {
             method: 'POST', 
             body: fileData
         });
@@ -102,7 +102,7 @@ const loadImageProfile = (userId,oldImage) => {
             closeOverlay();
             showAlert('Аватар был изменён', 'successfull');
         } else {
-            showAlert('Something went wrong', 'unsuccessfull');
+            showAlert('Что-то пошло не так', 'unsuccessfull');
         }
     }
 }
