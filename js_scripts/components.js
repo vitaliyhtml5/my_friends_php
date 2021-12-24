@@ -1,10 +1,13 @@
 'use strict';
 
+// Alerts
 function showAlert(text,status) {
     const alert = document.querySelector('.alert');
+
     createAlert(alert,text);
     alert.style.animation = 'showAlert 3s forwards';
     closeAlert(alert);
+
     if (status === 'unsuccessfull') {
         alert.classList.add('unsuccess');
     } else {
@@ -26,7 +29,6 @@ function closeAlert(alert) {
 // Loader
 const showLoaderMain = () => document.querySelector('.loader').style.display = 'block';
 const closeLoaderMain = () => document.querySelector('.loader').style.display = 'none';
-
 
 // Format date
 const formatDate = (date) => {

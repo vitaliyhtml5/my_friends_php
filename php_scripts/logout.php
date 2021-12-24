@@ -14,6 +14,3 @@ if (isset($_COOKIE['my_friends_access'])) {
 } else {
     res_result(500, 'Something went wrong');
 }
-
-
-

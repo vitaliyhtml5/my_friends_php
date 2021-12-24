@@ -12,6 +12,7 @@ const checkEmptyData = (field, error) => {
     } else {
         validation = true;
     }
+    
     return validation;
 }
 
@@ -27,6 +28,7 @@ const checkLength = (field, error, length) => {
     } else {
         validation = true;
     }
+
     return validation;
 }
 
@@ -43,6 +45,7 @@ const checkNumber = (field, error) => {
     } else {
         validation = true;
     }
+
     return validation;
 }
 

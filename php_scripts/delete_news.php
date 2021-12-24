@@ -10,6 +10,7 @@ $news_image = $_GET['news_image'];
 
 $query = "DELETE FROM news WHERE id = $news_id";
 $result = mysqli_query($dbc, $query) or die(mysqli_error());
+
 res_result(200, 'News was deleted');
 unlink($current_dir . $news_image);
 

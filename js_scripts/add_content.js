@@ -28,9 +28,14 @@ const addContent = (data, section) => {
     addNews();
     function addNews() {
         const news = document.querySelector('.profile-post-wrap');
+        news.innerHTML = ``;
+
         if (data.length === 1) {
-            console.log('EMPTY STATE');
-            // EMPTY STATE
+            news.innerHTML = `
+            <div class="news-info-empty">
+                <img src="img/news-empty.svg" alt="Пост не добавлен">
+                <b>Напишите свой первый пост</b>
+            </div>`;
         } else {
             for (let i = 1; i < data.length; i++) {
                 news.innerHTML += `
@@ -56,30 +61,27 @@ const addContent = (data, section) => {
 }
 
 const addAllFriends = (userId, section, result) => {
-    if (result.length === 0) {
-        console.log('EMPTY STATE');
-        // EMPTY STATE
-    } else {
-        section.innerHTML = ``;
-        for (let i in result) {
-            section.innerHTML += `
-            <div class="all-friends-wrap">
-                <div class="friend-box">
-                    <img class="avatar-wrap" src="img/avatars/${result[i].avatar}" alt="${result[i].first_name} ${result[i].last_name}">
-                    <ul class="friend-main-data">
-                        <li class="profile-name"><span>${result[i].first_name}</span> <span>${result[i].last_name}</span></li>
-                        <li><span>${result[i].age}</span> лет</li>
-                    </ul>
-                    <span class="friend-data-hobby">${result[i].hobby}</span>
-                </div>
-            </div>`;
-        }
-        showFriendProfile(userId, result, section);
+    section.innerHTML = ``;
+
+    for (let i in result) {
+        section.innerHTML += `
+        <div class="all-friends-wrap">
+            <div class="friend-box">
+                <img class="avatar-wrap" src="img/avatars/${result[i].avatar}" alt="${result[i].first_name} ${result[i].last_name}">
+                <ul class="friend-main-data">
+                    <li class="profile-name"><span>${result[i].first_name}</span> <span>${result[i].last_name}</span></li>
+                    <li><span>${result[i].age}</span> лет</li>
+                </ul>
+                <span class="friend-data-hobby">${result[i].hobby}</span>
+            </div>
+        </div>`;
     }
+    showFriendProfile(userId, result, section);
 }
 
 const addProfileFriend = (userId, chosenFriend, data, section, result) => {
     section.innerHTML = ``;
+
     section.innerHTML = `
     <div class="profile-wrap">
         <div class="avatar-profile">
@@ -97,12 +99,19 @@ const addProfileFriend = (userId, chosenFriend, data, section, result) => {
     <div class="profile-news">
         <div class="profile-post-wrap"></div>
     </div>`;
+
     addNews();
+
     function addNews() {
         const news = document.querySelector('.profile-post-wrap');
+        news.innerHTML = ``;
+
         if (data.length === 0) {
-            console.log('EMPTY STATE');
-            // EMPTY STATE
+            news.innerHTML = `
+            <div class="news-info-empty">
+                <img src="img/news-empty.svg" alt="Пост не добавлен">
+                <b>Пост ещё не добавлен</b>
+            </div>`;
         } else {
             for (let i = 0; i < data.length; i++) {
                 news.innerHTML += `
@@ -123,6 +132,7 @@ const addProfileFriend = (userId, chosenFriend, data, section, result) => {
             makeLike(userId, data);
             increaseImg(document.querySelectorAll('.news-img'));
         }
+        
         document.querySelector('.link-back').onclick = () => addAllFriends(userId, section, result);
     }
 }
@@ -136,16 +146,11 @@ const addAllNews = (userId, section) => {
         });
         const data = await res.json();
         closeLoaderMain();
-
-        if (data.length === 0) {
-            console.log('EMPTY STATE');
-            // EMPTY STATE
-        } else {
-            addNews(data);
-        }
+        addNews(data);
     }
     function addNews(data) {
         section.innerHTML = ``;
+        
         for (let i = 0; i < data.length; i++) {
             section.innerHTML += `
             <div class="profile-post-wrap">
@@ -168,6 +173,7 @@ const addAllNews = (userId, section) => {
                 document.querySelectorAll('.like-icon')[i].classList.remove('like-icon-checked');
             }
         }
+
         makeLike(userId, data);
         increaseImg(document.querySelectorAll('.news-img'));
     }

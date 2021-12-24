@@ -5,6 +5,7 @@ import {showAlert} from './components.js';
 
 document.querySelector('.login-form').addEventListener('submit', e => {
     e.preventDefault();
+
     const input = document.querySelectorAll('.login-form input');
     const error = document.querySelectorAll('.login-form .error-message');
 
@@ -13,6 +14,7 @@ document.querySelector('.login-form').addEventListener('submit', e => {
         password: input[1].value,
         remember: input[2].checked
     }
+
     if (!checkEmptyData(input[0], error[0]) || !checkEmptyData(input[1], error[1])) {
         return;
     } else {
@@ -27,12 +29,13 @@ document.querySelector('.login-form').addEventListener('submit', e => {
             },
             body: JSON.stringify(data)
         });
+
         const result = await res.json();
 
         if (result.message === 'Access is allowed') {
             window.location.href = '/my_friends_php/index.html';
         } else {
-            showAlert(result.message, 'unsuccessfull');
+            showAlert('Что-то пошло не так', 'unsuccessfull');
         }
     }
 });

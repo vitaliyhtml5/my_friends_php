@@ -8,6 +8,7 @@ import {getProfileData} from '../script.js';
 const editProfile = userId => {
     const input = document.querySelectorAll('.modal-profile input');
     const error = document.querySelectorAll('.modal-profile input+span');
+
     if (!checkEmptyData(input[0], error[0]) || !checkEmptyData(input[1], error[1]) || !checkEmptyData(input[2], error[2]) || !checkEmptyData(input[3], error[3])) {
         return;
     } else if (!checkLength(input[0], error[0], 20) || !checkLength(input[1], error[1], 20) || !checkLength(input[3], error[3], 20)) {
@@ -28,6 +29,7 @@ const editProfile = userId => {
             age: input[2].value,
             hobby: input[3].value,
         }
+
         showLoaderMain();
         const res = await fetch('/my_friends_php/php_scripts/edit_profile.php', {
             method: 'POST',
@@ -36,8 +38,10 @@ const editProfile = userId => {
             },
             body: JSON.stringify(data)
         });
+
         const result = await res.json();
         closeLoaderMain();
+
         if (result.message === 'Profile was updated') {
             getProfileData();
             closeOverlay();
@@ -54,6 +58,7 @@ const loadImageProfile = (userId,oldImage) => {
     
     function handleFiles() {
         const fileList = this.files;
+
         if (fileList[0].type != 'image/png' && fileList[0].type != 'image/jpeg') {
             showFileMessage('Неверный формат', false);
         } else if (fileList[0].size >= 5000000) {
@@ -72,6 +77,7 @@ const loadImageProfile = (userId,oldImage) => {
             method: 'POST', 
             body: fileData
         });
+
         const result = await res.json();
         closeLoaderMain();
 
@@ -95,8 +101,10 @@ const loadImageProfile = (userId,oldImage) => {
             },
             body: JSON.stringify(data)
         });
+
         const result = await res.json();
         closeLoaderMain();
+        
         if (result.message === 'Avatar was changed') {
             getProfileData();
             closeOverlay();

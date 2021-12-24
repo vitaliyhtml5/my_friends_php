@@ -17,6 +17,7 @@ if ($data['action'] === 'add') {
 
 function change_like($query, $message, $dbc, $news_id) {
     $result = mysqli_query($dbc, $query) or die(mysqli_error());
+    
     $res = array('code' => 200,'message' => $message,'likes' => count_likes($dbc, $news_id));
     header('Content-type: application/json');
     print json_encode($res);
@@ -26,6 +27,7 @@ function count_likes($dbc, $news_id) {
     $query = "SELECT COUNT(*) AS count FROM likes WHERE news_id = $news_id";
     $result = mysqli_query($dbc, $query) or die(mysqli_error());
     $row = mysqli_fetch_array($result);
+    
     return $row['count'];
 }
 

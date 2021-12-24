@@ -312,6 +312,21 @@ textarea:focus {
     margin-right: auto;
     opacity: 0.4;
 }
+.news-info-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    text-align: center;
+}
+.news-info-empty img {
+    width: 110px;
+}
+.news-info-empty b {
+    margin-top: 15px;
+    font-size: 22px;
+}
 .news-date {
     font-size: 14px;
     font-style: oblique;
@@ -618,7 +633,7 @@ textarea:focus {
     animation: 0.8s startLoader linear infinite;;
 }
 
-/* Scroll  */
+/*Scroll*/
 *::-webkit-scrollbar {
     width: 0;
     background-color: transparent;

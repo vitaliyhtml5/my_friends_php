@@ -5,6 +5,7 @@ import {createNews,removeNews,editNews,disableFields,enableFields} from './news.
 import {checkEmptyData,checkLength} from './validate_data.js';
 
 const overlay = document.querySelector('.overlay');
+
 const editProfileModal = data =>  {
     document.querySelector('.edit-profile').onclick = () => {
         createModal('editProfile', data);
@@ -28,6 +29,7 @@ const addNews = userId => {
     document.querySelector('.add-news-btn').onclick = () => {
         createModal('addNews', undefined);
         showModal();
+
         const addNewsBtn = document.querySelector('.upload-image-wrap .avatar-button');
         const textField = document.querySelector('.create-news textarea');
         const errorField = document.querySelector('.create-news .error-message');
@@ -53,6 +55,7 @@ const editNewsModal = data => {
         el.onclick = () => {
             createModal('editNews', undefined);
             showModal();
+
             document.querySelector('.modal-news-edit textarea').value = data[index+1].text;
             document.querySelectorAll('.modal-news-edit button')[1].addEventListener('click', closeOverlay);
             document.querySelectorAll('.modal-news-edit button')[0].addEventListener('click', () => editNews(data[index+1].news_id, document.querySelector('.modal-news-edit textarea').value));
@@ -65,6 +68,7 @@ const deleteNews = data => {
         el.onclick = () => {
             createModal('deleteNews', data[index+1].text);
             showModal();
+            
             document.querySelectorAll('.modal-avatar-change button')[1].addEventListener('click', closeOverlay);
             document.querySelectorAll('.modal-avatar-change button')[0].addEventListener('click', () => removeNews(data[index+1].news_id, data[index+1].image));
         }

@@ -55,8 +55,10 @@ const createNews = userId => {
             },
             body: JSON.stringify(data)
         });
+
         const result = await res.json();
         closeLoaderMain();
+
         if (result.message === 'News was added') {
             getProfileData();
             closeOverlay();
@@ -89,6 +91,7 @@ const editNews = (newsId, textNew) => {
             news_id: newsId,
             text: textNew
         }
+
         const res = await fetch('/my_friends_php/php_scripts/edit_news.php', {
             method: 'PATCH',
             headers: {
@@ -96,6 +99,7 @@ const editNews = (newsId, textNew) => {
             },
             body: JSON.stringify(data)
         });
+
         const result = await res.json();
         closeLoaderMain();
 
@@ -117,6 +121,7 @@ const removeNews = (newsId, newsImage) => {
         const res = await fetch(`/my_friends_php/php_scripts/delete_news.php?news_id=${newsId}&news_image=${newsImage}`, {
             method: 'DELETE'
         });
+
         const result = await res.json();
         closeLoaderMain();
 
@@ -134,6 +139,7 @@ function disableFields(field, button) {
     field.disabled = true;
     button.disabled = true;
 }
+
 function enableFields(field, button) {
     field.disabled = false;
     button.disabled = false;

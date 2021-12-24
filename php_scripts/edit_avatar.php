@@ -11,6 +11,7 @@ $old_image = $data['old_image'];
 
 $query = "UPDATE users SET avatar = '$image' WHERE id = $user_id";
 $result = mysqli_query($dbc, $query) or die(mysqli_error());
+
 res_result(200, 'Avatar was changed');
 unlink($current_dir . $old_image);
 

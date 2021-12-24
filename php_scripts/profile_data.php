@@ -55,5 +55,3 @@ function getDataNews($dbc, $query) {
 }
 
 mysqli_close($dbc);
-
-

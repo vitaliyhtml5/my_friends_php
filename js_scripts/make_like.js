@@ -32,12 +32,13 @@ const makeLike = (userId, data, page) => {
             },
             body: JSON.stringify(data)
         });
+        
         const result = await res.json();
 
         if (result.message === 'Like was added' || result.message === 'Like was removed') {
             el.textContent = result.likes;
         } else {
-            showAlert(result.message, 'unsuccessfull');
+            showAlert('Что-то пошло не так', 'unsuccessfull');
         }
     }
 }
